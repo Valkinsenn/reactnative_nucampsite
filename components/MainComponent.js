@@ -10,6 +10,7 @@ import Directory from "./DirectoryComponent";
 import About from "./AboutComponent";
 import Contact from "./ContactComponent";
 import CampsiteInfo from "./CampsiteInfoComponent";
+import Reservation from "./ReservationComponent";
 import {
   Image,
   View,
@@ -70,6 +71,45 @@ const ContactNavigator = createStackNavigator(
       headerLeft: (
         <Icon
           name="address-card"
+          type="font-awesome"
+          iconStyle={styles.stackIcon}
+          onPress={() => navigation.toggleDrawer()}
+        />
+      ),
+    }),
+  }
+);
+
+const ReservationNavigator = createStackNavigator(
+  {
+    // FIX 1, PART 1: Incorrect screen assignment
+    // Your contact navigator only needs to serve up the contact component
+    // You can delete the rest of the component pointers...
+    /*
+    Directory: { screen: Directory },
+    CampsiteInfo: { screen: CampsiteInfo },
+    About: { screen: About },
+    */
+    // END FIX 1, PART 1
+    Reservation: { screen: Reservation },
+  },
+  {
+    // FIX 1, PART 2: Unnecessary initial route
+    // Since we now have corrected this navigator to point to one component,
+    // you do not need the "initialRoute" parameter.
+    /* initialRouteName: "Contact",*/
+    // END FIX 1, PART 2
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "#5637DD",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+      headerLeft: (
+        <Icon
+          name="tree"
           type="font-awesome"
           iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
@@ -221,6 +261,15 @@ const MainNavigator = createDrawerNavigator(
       navigationOptions: {
         drawerIcon: ({ tintColor }) => (
           <Icon name="list" type="font-awesome" size={24} color={tintColor} />
+        ),
+      },
+    },
+    Reservation: {
+      screen: ReservationNavigator,
+      navigationOptions: {
+        drawerLabel: "Reserve Campsite",
+        drawerIcon: ({ tintColor }) => (
+          <Icon name="tree" type="font-awesome" size={24} color={tintColor} />
         ),
       },
     },
