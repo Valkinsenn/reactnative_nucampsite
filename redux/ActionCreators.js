@@ -1,6 +1,20 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../shared/baseUrl";
 
+// =============================
+// Comments, yo.
+// =============================
+
+export const addComments = (comments) => ({
+  type: ActionTypes.ADD_COMMENTS,
+  payload: comments,
+});
+
+export const commentsFailed = (errMess) => ({
+  type: ActionTypes.COMMENTS_FAILED,
+  payload: errMess,
+});
+
 export const fetchComments = () => (dispatch) => {
   return fetch(baseUrl + "comments")
     .then(
@@ -25,16 +39,9 @@ export const fetchComments = () => (dispatch) => {
     .catch((error) => dispatch(commentsFailed(error.message)));
 };
 
-export const commentsFailed = (errMess) => ({
-  type: ActionTypes.COMMENTS_FAILED,
-  payload: errMess,
-});
-
-export const addComments = (comments) => ({
-  type: ActionTypes.ADD_COMMENTS,
-  payload: comments,
-});
-
+// =============================
+// Campsite Stuph
+// =============================
 export const fetchCampsites = () => (dispatch) => {
   dispatch(campsitesLoading());
 
@@ -75,6 +82,9 @@ export const addCampsites = (campsites) => ({
   payload: campsites,
 });
 
+// =============================
+// "PROMOTEEEEEEEEEEEDD!!!" - Neebs, Battlefield Friends
+// =============================
 export const fetchPromotions = () => (dispatch) => {
   dispatch(promotionsLoading());
 
@@ -115,6 +125,9 @@ export const addPromotions = (promotions) => ({
   payload: promotions,
 });
 
+// =============================
+// Howdy, pardners!
+// =============================
 export const fetchPartners = () => (dispatch) => {
   dispatch(partnersLoading());
 
@@ -155,6 +168,9 @@ export const addPartners = (partners) => ({
   payload: partners,
 });
 
+// =============================
+// "I'm Commander Shepard and this is my FAVORITE store in the Citadel."
+// =============================
 export const postFavorite = (campsiteId) => (dispatch) => {
   setTimeout(() => {
     dispatch(addFavorite(campsiteId));
@@ -165,3 +181,26 @@ export const addFavorite = (campsiteId) => ({
   type: ActionTypes.ADD_FAVORITE,
   payload: campsiteId,
 });
+
+// =============================
+// Adding comments
+// =============================
+
+export const addComment = (comment) => ({
+  type: ActionTypes.ADD_COMMENT,
+  payload: comment,
+});
+
+export const postComment = (campsiteId, author, rating, text) => (dispatch) => {
+  const newComment = {
+    campsiteId: campsiteId,
+    author: author,
+    rating: rating,
+    text: text,
+    date: new Date().toISOString(),
+  };
+
+  setTimeout(() => {
+    dispatch(addComment(newComment));
+  }, 2000);
+};
