@@ -101,7 +101,7 @@ class CampsiteInfo extends Component {
     this.state = {
       author: "",
       rating: 5,
-      showModal: "false",
+      showModal: false,
       text: "",
     };
   }
@@ -155,9 +155,6 @@ class CampsiteInfo extends Component {
           campsite={campsite}
           favorite={this.props.favorites.includes(campsiteId)}
           markFavorite={() => this.markFavorite(campsiteId)}
-          onPress={() => {
-            this.toggleModal();
-          }}
           onShowModal={() => this.toggleModal()}
         />
         <RenderComments comments={comments} />
@@ -195,7 +192,6 @@ class CampsiteInfo extends Component {
                 onPress={() => {
                   this.handleComment(campsiteId);
                   this.resetForm();
-                  this.toggleModal();
                 }}
                 title="Submit"
               />
