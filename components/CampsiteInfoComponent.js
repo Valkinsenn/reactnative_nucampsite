@@ -6,6 +6,7 @@ import {
   Modal,
   PanResponder,
   ScrollView,
+  Share,
   StyleSheet,
   Text,
   View,
@@ -77,6 +78,19 @@ function RenderCampsite(props) {
     },
   });
 
+  const shareCampsite = (title, message, url) => {
+    Share.share(
+      {
+        title,
+        message: `${title}: ${message} ${url}`,
+        url,
+      },
+      {
+        dialogTitle: `Share ${title}`,
+      }
+    );
+  };
+
   if (campsite) {
     return (
       <Animatable.View
@@ -108,6 +122,20 @@ function RenderCampsite(props) {
               color="#5637DD"
               name="pencil"
               onPress={() => props.onShowModal()}
+              raised
+              reverse
+              type="font-awesome"
+            />
+            <Icon
+              color="#5637DD"
+              name={"share"}
+              onPress={() =>
+                shareCampsite(
+                  campsite.name,
+                  campsite.description,
+                  baseUrl + campsite.image
+                )
+              }
               raised
               reverse
               type="font-awesome"
